@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1712030108 "/data/seagate/guias/crypto/discretas.tex" "discretas.pdf" "discretas" 1712030108 0
-  "/data/seagate/guias/crypto/discretas.tex" 1712030107 11195 d57c9e12b9096d1db71c0bf21a58dada ""
+["pdflatex"] 1712031248 "/data/seagate/docs_guias/cryptography/discrete_math/discretas.tex" "discretas.pdf" "discretas" 1712031249 0
+  "/data/seagate/docs_guias/cryptography/discrete_math/discretas.tex" 1712030107 11195 d57c9e12b9096d1db71c0bf21a58dada ""
   "/etc/texmf/web2c/texmf.cnf" 1711302834 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -69,7 +69,7 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1681034085 39561 34c98e380bf7c7201ee6a7909aff625a ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1711302857 4623455 fa0568a71dd9a288d6c226ee477506c6 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1711302910 7879496 d0c0160a8a95606c4e171f5751198e34 ""
-  "discretas.aux" 1712030108 3015 50640f858770086229bc12828084859b "pdflatex"
+  "discretas.aux" 1712031249 3015 50640f858770086229bc12828084859b "pdflatex"
   "discretas.tex" 1712030107 11195 d57c9e12b9096d1db71c0bf21a58dada ""
   (generated)
   "discretas.aux"

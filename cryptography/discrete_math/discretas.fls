@@ -1,9 +1,9 @@
-PWD /data/seagate/guias/crypto
+PWD /data/seagate/docs_guias/cryptography/discrete_math
 INPUT /etc/texmf/web2c/texmf.cnf
 INPUT /usr/share/texmf/web2c/texmf.cnf
 INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
-INPUT /data/seagate/guias/crypto/discretas.tex
+INPUT /data/seagate/docs_guias/cryptography/discrete_math/discretas.tex
 OUTPUT discretas.log
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/article.cls
