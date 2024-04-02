@@ -1,2 +1,6 @@
-!cryptography/discrete_math/*.pdf
-!cryptography/discrete_math/*.tex
+cryptography/discrete_math/*.aux
+cryptography/discrete_math/*.fls
+cryptography/discrete_math/*.fd*
+cryptography/discrete_math/*.log
+cryptography/discrete_math/*.syn*
+
