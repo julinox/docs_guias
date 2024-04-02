@@ -1,0 +1,275 @@
+\documentclass{article}
+\usepackage[spanish]{babel}
+\usepackage{amsmath, amsthm, amsfonts}
+
+\title{Matematicas Discretas y Criptografia}
+\author{Julino}
+\begin{document}
+\maketitle
+\newtheorem{theorem}{Teorema}[section]
+\renewcommand \qedsymbol{}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+%MACROS
+\newcommand{\SP}{\,\,}
+
+\pagebreak
+\section{Aritmetica Modular}
+Todo numero entero 'p' $\in \mathbb{Z}$ puede expresarse de la siguiente manera:
+\begin{equation}
+    \label{divisibilidad}
+    \begin{split}
+        p &= nq + r \SP\SP \vert \SP n,q \in \mathbb{Z} \SP y \SP r \geq 0\\
+        r &= p - nq
+    \end{split}
+\end{equation}
+
+Eso significa que si R = 0, tanto n como q dividen a p, sin embargo nos enfocaremos
+en n para trabajar en la aritmetica modular\\
+
+Definimos entonces la aritmetica modular como el resto que se obtiene al dividir un
+numero 'A' entre un modulo 'N'.
+$$A\mod{N} = R \implies A = Nq + R\SP\SP \vert \SP\SP 0 \le \SP  R < N$$
+\textbf{Ejemplo:} $16 \mod{5} = 1$\\
+
+Se puede calcular el modulo N de un numero negativo, sin embargo en la Criptografia
+nos interesa trabajar solamente con numeros positivos. Aun asi esta es la manera de
+trabajar con numeros negativos:
+
+$$A\mod{N} = (A + Nk) \mod{N}$$
+\textbf{Ejemplo:} $-5 \mod{3} = (-5 + 3\times2) \mod{3} = 1\mod{3} = 1$\\
+Nota: Siempre que $A < N, \SP A \mod{N} = A$
+
+\subsection{Congruencia} \label{congruencia}
+Definimos la conguencia de dos numeros enteros A y B con el modulo N ($A \equiv B \mod N$) si ambos
+numeros generan el mismo resto R ($A = Nq + R$ y $B = Nq^\prime + R$)
+
+\begin{theorem}
+    $$ A \equiv B \mod N \implies N / (a-b)$$
+\end{theorem}
+
+\begin{proof}
+    Usando \ref{congruencia} tenemos que $a-b = Nq + r -Nq^{\prime} - R = N(q-q^{\prime})$. Pero $q-q^\prime \in \mathbb{Z} \implies a-b = Nq^{\prime \prime} \implies N/(a-b)$
+\end{proof}
+
+\section{Numeros Primos y Compuestos}
+Las operaciones modulares en Criptografia se realizan dentro de un modulo de cifra, cuyo
+valor puede ser un numero primo o compuesto.\\
+
+Un numero primo es aquel numero que solo es divisible por 1 y por el mismo,
+es decir, sea P primo $P \in \mathbb{N}, \SP P > 1$ y los unicos divisores de P son 1 y P\\
+
+Un numero compuesto es un numero natural no primo. Sea N un numero compuesto,
+$N \in \mathbb{N}, \SP N > 1 \SP y \SP \exists n \in \mathbb{N}, \SP n \notin \{1,N\}
+\SP \vert \SP n/N$
+
+\subsection{Cardinalidad de los Numeros Primos}
+Existen infinitos primos pero la cantidad de primos que existe en el intervalo [2, X]
+viene dada por el teorema de los numeros primos:
+\begin{theorem}
+    $$|[2,x]| \approx \pi(x) \approx \frac{x}{ln(x)}$$
+\end{theorem}
+
+\begin{proof}
+    La demostracion es sencilla y se deja como ejercicio al lector
+\end{proof}
+
+\textbf{Ejemplo:} ¿Cuantos primos hay de $2^{1024}$ bits?\\\\
+Es decir, queremos calcular cuantos primos existen que se representen con 1024 bits.
+Para ello calculamos cuantos primos en total hay en $2^{1024}$ y le restamos los
+primos que necesiten menos de 1024 bits para representarlos. Sea $P_{1024}$ la cantidad
+de primos de 1024 bits:
+$$P_{1024} \approx \pi{(2^{1024})} - \pi{(2^{1023})} \approx 1,26 \times 10^{305}$$
+En 'cristiano': ¡Es una cantidad inmesamente grande!
+
+\subsection{Primo Seguro}
+Se define primo seguro al numero primo P que satisface la siguiente condicion:
+$P = 2P^{'} + 1$, donde $P^{'}$ es primo tambien. \textbf{Ejemplo:} $23 = 2 \times 11 + 1$. Claramente no
+todos los $2P^{'} + 1$ son numeros primos, como ejemplo tenemos
+al numero \textbf{15}
+
+\subsection{Primo Relativo}
+\label{primo_relativo}
+Es un concepto comparativo, se dice que 2 numeros $a, b \in \mathbb{P}$ (donde $\mathbb{P}$
+es el conjunto de los primos) son coprimos o primos relativos $\iff mcd(a,b) = 1$. Es
+decir no tienen factores en comun. 
+
+\subsection{Numero Compuesto}
+Un numero compuesto es cualquier numero que tiene mas de 2 divisores, es decir se puede dividir por 1, por
+el mismo y por algun otro conjunto de factores primos. Todo numero no primo es compuesto. En este caso
+solo nos interesan los numeros compuestos del tipo $p \times q$, con p y q primos.\\
+\textbf{Ejemplo:} $3 \times 5 \times 7$ es un numero compuesto del tipo que no nos interesa
+
+\section{Conjunto de Restos}
+El conjunto de resto es el conjunto que contiene todos los posibles restos de un
+modulo N. Existen 2 tipos, el completo y el reducido. Es de hacer notar que este
+ultimo es muy importante en la Criptografia asimetrica.
+
+\subsection{Conjunto Completo de Restos}
+Es el conjunto que contiene a todos los restos del modulo n:
+$$CCR = \{0,1,2,...,n-2,n-1\}$$
+
+\subsection{Conjunto Reducido de Restos}
+Es el conjunto que contiene todos los restos que son primos relativos(\ref{primo_relativo}) con n.
+$$CRR=\{1,n_{1},n_{2},...n_{i}\} \SP / \SP n_{i} < n, \SP mcd(n_{i}, n) = 1$$
+Si n es primo entonces $CRR = \{1,2,3,...,n-2,n-1\}$. Vemos que el 0 se descarta
+ya que no es solucion ($mcd(0, n) \neq 1$). Por supuesto que $CRR \subset CCR$.\\\\
+Ejemplo: n = 8, $CCR = \{0,1,2,3,4,5,6,7\}, \SP CCR = \{1,3,5,7\}$
+
+\subsection{Funcion de Euler($\phi(n)$)}
+\label{fn_euler}
+Gracias al gran matematico Leonhard Euler tenemos la funcion que lleva su nombre
+que nos permite calcular el cardinal del CRR ($\phi(n) = \vert CRR \vert$). Este numero
+es muy importante y servira para conseguir el inverso de un modulo n, sobre
+eso hablaremos mas adelante.\\\\
+Existen 4 casos donde $\phi(n)$ funciona:
+\begin{itemize}
+    \item n es primo
+    \item $n = p^{k}$, p es primo y $k \in \mathbb{Z}$
+    \item $n = p \times q$, p y q primos
+    \item $n = p_{1}^{e_{1}} \times p_{2}^{e_{2}} \times ... \times p_{n}^{e_{n}} = \displaystyle\prod_{i=1}^{n}p_{i}^{e_{i}}$
+\end{itemize}
+
+Estudiaremos los unicos 2 casos que nos importa para los objetivos de este documento (que es la Criptografia)
+
+\subsubsection{Caso n primo}
+Si n es primo entonces $\phi(n) = \vert \{1,2,,...,n-2,n-1\} \vert = \vert CRR \vert = n-1$\\
+\textbf{Ejemplo:} Sea n=7, $\phi(7)= 7-1 = 6$. $CRR_{7}=\{1,2,3,4,5,6\} \implies \vert CRR \vert = 6$ 
+
+\subsubsection{Caso n 'compuesto'}
+Si p y q son primos entonces $\phi(n) = \phi(p \times q) = \phi(p) \times \phi(q) = (p-1) \times (q-1)$
+\begin{proof}
+    Queda pendiente
+\end{proof}
+\textbf{Ejemplo:}0 Sea n = 15($5 \times 3$), $\phi(15) = (p-1) \times (q-1) = (5-1) \times (3-1) = 8$.
+$CRR_{15} = \{1,2,4,7,8,11,13,14\}$
+
+\section{Inversos}
+Esta es sin duda la parte mas importante ya que en Criptografia (al menos en la asimetrica)
+el inverso es lo que nos permite deshacer o revertir una operacion, si ciframos con un numero
+C el inverso de C (inv(c)) nos permitira descifrar, y si ciframos con inv(C) entonces C nos
+permitira descifrar, es decir, uno deshace lo que hizo el otro.\\
+
+Existen 3 tipos de inversos que veremos: Aditivo, XOR y Multiplicativo, siendo este ultimo
+el que se usa en la Criptografia asimetrica
+
+\subsection{Inverso Aditivo}
+Cifrado y Descifrado, donde 'K' es la clave:
+\begin{align}
+    \notag c_{i} &= m_{i} + K \mod n\\
+    \label{desc_plus}
+    m_{i} &= c_{i} + inv_{+}(K,n) \mod n
+\end{align}
+
+En el caso aditivo es muy sencillo encontrar el inverso:
+$$inv_{+}(K,n) = n-k, \SP n > K$$
+Entonces el inverso aditivo (\ref{desc_plus}) queda de la siguiente manera:
+$$m_{i} = c_{i} + (n-K) \mod n$$
+
+\subsection{Inverso XOR}
+Es la misma operacion para cifrar y describrar (K es la clave):
+\begin{align}
+    \notag Cifrado:& \SP C = M \oplus  K\\
+    \notag Descifrado:& \SP M = C \oplus K
+\end{align}
+
+\subsection{Inverso Multiplicativo}
+El inverso multiplicativo de un \textbf{resto} k (logicamente $k<n$), no siempre existe.
+
+\begin{itemize}
+    \item $inv_{\times}(k,n) \equiv 1 \mod n \iff mcd(k,n) = 1$ (i.e $k, n$ coprimos)
+    \item $k \times inv_{\times}(k,n) \mod n = 1 \implies mcd(k \times i_{k}, n) = 1 \SP \vert \SP i_{k} = inv_{\times}(k, n)$
+    \item Si n es primo entonces k tiene inverso
+    \item Si n es compuesto y $mcd(k, n) \neq 1$ entonces k no tiene
+    inverso.
+\end{itemize}
+
+\begin{align}
+    \notag Cifrado:& \SP C = k \times m_{i} \mod n\\
+    \notag Descifrado:& \SP M = c_{i} \times inv_{\times}(k,n) \mod n
+\end{align}
+
+Pregunta: $inv_{\times}(k,n) < n$? No lo se pero si existe y es menor a n entonces el inverso
+es unico dentro de los restos de n.
+
+\section{Calculo del Inverso Multiplicativo ($inv_{\times}(k,n)$)}
+Existen varias maneras para calcular el inverso multiplicativo:
+
+\subsection{Fuerza Bruta}
+Se prueban todos los restos de n. Si n es primo entonces la cantidad de restos a probar es
+n-1 (excluyendo el 1). Si n es compuesto entonces solo se prueba con los restos que sean
+coprimos con el modulo ($mcd(i^{'}, n) = 1$)
+
+\subsection{Pequeño Teorema de Fermat}
+\begin{equation}
+    \label{ptf}
+    Sea \SP n \SP primo \SP y \SP a > 0 \SP coprimo \SP con \SP n, \SP a^{n-1} \equiv 1 \mod n
+\end{equation}
+
+Sea a un resto dentro del modulo n, usando \ref{ptf} tenemos que $a^{n-1} \mod n = 1$, por otra parte tenemos que
+$a \times x \mod n = 1$ (x es $inv_{\times}(a,n)$). Entonces tenemos lo siguiente:
+
+\begin{align}
+    \notag a^{n-1} \mod n &= a \times x \mod n\\
+    \notag a ^{n-2} \mod n &= x \mod n\\
+    \notag x &= a^{n-2} \mod n \SP \footnotemark
+\end{align}
+\footnotetext{Dado que $x < n \implies x \mod n = x$}
+
+Usando la funcion de Euler (\ref{fn_euler}) podemos reescribir la ecuadion:
+\begin{align}
+    \notag \phi(n) &= n-1\\
+    \notag x &= a^{\phi(n) -1}
+\end{align}
+
+Cuando n es compuesto tengo que calcular el $\phi(n)$. Si n es muy grande el calculo del inverso
+usando al pequeño fermat sigue siendo muy costoso por lo que este metodo no sirve para la
+Criptografia asimetrica donde los n son enormes.
+
+\subsection{Algoritmo Extendido de Euclides (AEE)}
+Si bien es mejor que el pequeño fermat este metodo sigue siendo lento para un n grande. No
+obstante aca esta el algoritmo:
+
+\begin{verbatim}
+    // Esto es psecodigo
+    // Linea blanca intencional
+    // Linea blanca intencional
+    // Linea blanca intencional
+    // Linea blanca intencional
+    // Linea blanca intencional
+    func AEE(a, n)
+        (g[0],g[1],u[0],u[1],v[0],v[1],i) = (n,a,1,0,0,1,1)
+
+        while g[i] != 0
+            y[i+1] = g[i-1]/g[i] // Parte entera
+            g[i+1] = g[i-1]-(y[i+1]*g[i])
+            u[i+1] = u[i-1]-(y[i+1]*u[i])
+            v[i+1] = v[i-1]-(y[i+1]*v[i])
+            i = i+1
+        endwhile
+
+        if v[i-1] < 0
+            v[i-1] = v[i-1] + b
+        endif
+
+        return v[i-1]
+    endfunc
+\end{verbatim}
+
+\subsection{Algoritmo Exponenciacion Rapida (AER)}
+Este es el que se usa en Criptografia asimetrica y queda pendiente de implementacion real
+
+\section{Raices Primitivas en un Primo p}
+Se denomina raiz primitiva $\alpha$ de p al $\alpha$ que cumple lo siguiente:
+$$
+    \alpha^{x_{i}} \mod p = CRR, \SP 0 \leq x_{i} \leq p-1
+$$
+La raiz primitiva genera el CRR (conjunto reducido de restos) del primo p. Si $\alpha$ es
+raiz primitiva de p entonces tenemos las siguientes propiedades:
+\begin{itemize}
+    \item $\alpha^{0} \mod p = y_{0} = 1$
+    \item $\alpha^{p-1} \mod p = y_{p-1} = 1$
+    \item $\alpha^{x_{i}} \mod p = y_{x_{i}}, \SP x_{i} = \{1,2,...,p-3,p-2\}$
+    \item $y_{x_{i}} = \{2,3,...,p-1\}$ (sin order particular)
+\end{itemize}
+\end{document}
