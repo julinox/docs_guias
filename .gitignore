@@ -1,6 +1,6 @@
-cryptography/discrete_math/*.aux
-cryptography/discrete_math/*.fls
-cryptography/discrete_math/*.fd*
-cryptography/discrete_math/*.log
-cryptography/discrete_math/*.syn*
+cryptography/*/*.aux
+cryptography/*/*.fls
+cryptography/*/*.fd*
+cryptography/*/*.log
+cryptography/*/*.syn*
 
