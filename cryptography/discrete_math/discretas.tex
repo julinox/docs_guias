@@ -7,10 +7,10 @@
 \begin{document}
 \maketitle
 \newtheorem{theorem}{Teorema}[section]
-\renewcommand \qedsymbol{}
-\renewcommand{\thefootnote}{\fnsymbol{footnote}}
 
 %MACROS
+\renewcommand \qedsymbol{}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
 \newcommand{\SP}{\,\,}
 
 \pagebreak
@@ -257,7 +257,9 @@ obstante aca esta el algoritmo:
 \end{verbatim}
 
 \subsection{Algoritmo Exponenciacion Rapida (AER)}
-Este es el que se usa en Criptografia asimetrica y queda pendiente de implementacion real
+Este es el que se usa en Criptografia asimetrica y queda como tarea queda pendiente de
+implementar (bits y programacion dinamica)
+
 
 \section{Raices Primitivas en un Primo p}
 Se denomina raiz primitiva $\alpha$ de p al $\alpha$ que cumple lo siguiente:
@@ -272,4 +274,7 @@ raiz primitiva de p entonces tenemos las siguientes propiedades:
     \item $\alpha^{x_{i}} \mod p = y_{x_{i}}, \SP x_{i} = \{1,2,...,p-3,p-2\}$
     \item $y_{x_{i}} = \{2,3,...,p-1\}$ (sin order particular)
 \end{itemize}
+
+\subsection{Problema del Logaritmo Discreto}
+La formula es: $x = \log_{\alpha} \beta \mod p$, si $\alpha, \beta$ y p son conocidos
 \end{document}
