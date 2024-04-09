@@ -4,8 +4,11 @@
 % Packages
 \usepackage[spanish]{babel}
 
+% Drawing?
+\usepackage{tikz}
+
 % Headers
-\title{Funcion Hash}
+\title{Elementos Criptograficos}
 \author{Juli No}
 
 %MACROS
@@ -67,4 +70,40 @@ $$
     que produzca el mismo H. Por la paradoja del cumpleaños la probabilidad de ocurrencia
     de esto es $1/2^{n/2}$
 \end{itemize}
+
+\subsection{Estructura Merkle-Damgard}
+Habla un poco sobre esta estructura
+
+\subsection{Funciones Hash Conocidas}
+A continuacion una descripcion de las funciones Hash mas conocidas y/o usadas
+
+\section{Criptografia Simetrica Bloque}
+Sea M un mensaje de M bytes (M*8 bits waooo), en este tipo de cifra o cifrado los mensajes de 
+entrada o texto claro se dividen en bloques:\\
+
+\begin{tikzpicture}
+    \draw[very thick] (0,0) rectangle (11.5,1) node[pos=.5] {Mensaje M};
+    \draw[very thick, dashed] (0,-1.5) rectangle node[] (b1) {Bloque 1} (2.5,-0.5);
+    \draw[very thick, dashed] (3,-1.5) rectangle node{Bloque 2} (5.5,-0.5);
+    \draw[very thick, dashed] (6,-1.5) rectangle node{...} (8.5,-0.5);
+    \draw[very thick, dashed] (9,-1.5) rectangle node{Bloque n} (11,-0.5);
+    \filldraw[blue!10!, draw=black, dashed] (11,-1.5) rectangle node[black, anchor=west]{\SP \SP Padding} (11.5,-0.5);
+    \draw[] (1.25,-1.6) -- (1.25,-2.5);
+    %\draw[<-] (b1.east) -- (1,-2.5);
+    
+\end{tikzpicture}
+
+\begin{itemize}
+    \item El mensaje M se divide en n bloques
+    \item El Criptograma C sera la concatenacion de $c_{1} + c_{2} + ... + c_{n-1} + c_{n}$
+    \item No se puede cifrar bloques de forma independiente. Para ello usaremos algun "modo de cifra"
+        como por ejemplo \textbf{CBC}(Cypher Book Chaining), \textbf{CTR} o \textbf{GCM} (Galois
+        Counter Mode)
+\end{itemize}
 \end{document}
+
+% https://www.youtube.com/watch?v=dxqxxwi9pwk
+% Merkle Damgard construccion
+% RFC 1321
+% Ataque por extension de longitud
+%https://tex.stackexchange.com/questions/251642/draw-arrows-between-nodes-with-tikz
