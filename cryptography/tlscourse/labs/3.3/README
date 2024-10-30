@@ -1,0 +1,12 @@
+Create a CA and sign 2 different certs for 2 different servers
+
+Steps:
+- Generate keys (RSA)
+- Generate CA self-signed CERT
+- Generate keys/certs for 'server1' and 'server2'
+- Generate CSR for both servers (openssl req -new)
+- Sign (openssl ca -config someconfig -cert ca-cert -key ca-key -in the-csr -out some.cert)
+
+Notes:
+RootCA/CA/serial.txt points to current serial (to set for new signing)
+RootCA/CA/serial.txt.old points to previous serial number
